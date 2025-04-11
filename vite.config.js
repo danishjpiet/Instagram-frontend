@@ -6,6 +6,6 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    allowedHosts: [''],
+    allowedHosts: ['instagram-frontend-coral.vercel.app'],
   },
 })
