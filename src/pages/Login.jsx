@@ -29,10 +29,15 @@ const Login = () => {
         </p>
         <button
           onClick={handleInstagramLogin}
-          className="w-full flex items-center justify-center gap-2 bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-xl transition duration-300"
+          disabled={isLoading}
+          className="w-full flex items-center justify-center gap-2 bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-xl transition duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          <FaInstagram className="text-lg" />
-          Continue with Instagram
+          {isLoading ? (
+            <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
+          ) : (
+            <FaInstagram className="text-lg" />
+          )}
+          {isLoading ? "Connecting..." : "Continue with Instagram"}
         </button>
       </div>
     </div>
