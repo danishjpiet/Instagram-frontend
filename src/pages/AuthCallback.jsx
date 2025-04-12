@@ -14,13 +14,6 @@ const AuthCallback = () => {
       const code = searchParams.get("code");
 
       if (!code) {
-        // toast({
-        //   title: "Error",
-        //   description: "Authentication code not found",
-        //   status: "error",
-        //   duration: 3000,
-        //   isClosable: true,
-        // });
         navigate("/login");
         return;
       }
@@ -30,7 +23,6 @@ const AuthCallback = () => {
 
         const { user, tokens } = response.data;
         if (tokens.accessToken && tokens.refreshToken && user) {
-          // Store the user data and token in AuthContext
           login(user, tokens.accessToken, tokens.refreshToken);
 
           navigate("/");
@@ -38,13 +30,6 @@ const AuthCallback = () => {
           throw new Error("Authentication failed");
         }
       } catch (error) {
-        // toast({
-        //   title: "Error",
-        //   description: error.message || "Failed to complete authentication",
-        //   status: "error",
-        //   duration: 3000,
-        //   isClosable: true,
-        // });
         navigate("/login");
       } finally {
         setIsProcessing(false);
@@ -53,6 +38,24 @@ const AuthCallback = () => {
 
     processAuthCallback();
   }, [searchParams, navigate]);
+
+  return (
+    <div className="flex justify-center items-center h-screen w-full">
+      <div className="max-w-sm mx-auto p-6 bg-white rounded-2xl shadow-xl text-center">
+        {isProcessing ? (
+          <>
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent mx-auto mb-4"></div>
+            <h2 className="text-xl font-semibold text-gray-700">
+              Authenticating...
+            </h2>
+            <p className="text-sm text-gray-500 mt-2">
+              Please wait while we complete your authentication
+            </p>
+          </>
+        ) : null}
+      </div>
+    </div>
+  );
 };
 
 export default AuthCallback;
